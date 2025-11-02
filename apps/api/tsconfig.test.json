@@ -1,12 +1,29 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["test"],
+  "include": [
+    "test"
+  ],
   "references": [
-    { "path": "tsconfig.src.json" },
-    { "path": "../../packages/domain" }
+    {
+      "path": "tsconfig.src.json"
+    },
+    {
+      "path": "../../packages/domain"
+    },
+    {
+      "path": "../../packages/database"
+    },
+    {
+      "path": "../../packages/workflow"
+    },
+    {
+      "path": "../../packages/contractApi"
+    }
   ],
   "compilerOptions": {
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "tsBuildInfoFile": ".tsbuildinfo/test.tsbuildinfo",
     "rootDir": "test",
     "noEmit": true
