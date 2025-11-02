@@ -2,8 +2,26 @@
   "extends": "./tsconfig.base.json",
   "include": [],
   "references": [
-    { "path": "packages/cli" },
-    { "path": "packages/domain" },
-    { "path": "packages/server" }
+    {
+      "path": "packages/domain"
+    },
+    {
+      "path": "packages/database"
+    },
+    {
+      "path": "packages/contractApi"
+    },
+    {
+      "path": "packages/utils"
+    },
+    {
+      "path": "packages/workflow"
+    },
+    {
+      "path": "packages/contractApi"
+    },
+    {
+      "path": "apps/api"
+    }
   ]
 }

@@ -1,13 +1,13 @@
 {
-  "name": "@template/server",
+  "name": "@template/workflow",
   "version": "0.0.0",
   "type": "module",
   "license": "MIT",
-  "description": "The server template",
+  "description": "The domain template",
   "repository": {
     "type": "git",
     "url": "<PLACEHOLDER>",
-    "directory": "packages/server"
+    "directory": "packages/domain"
   },
   "publishConfig": {
     "access": "public",
@@ -25,8 +25,7 @@
   },
   "dependencies": {
     "@effect/platform": "latest",
-    "@effect/platform-node": "latest",
-    "@template/domain": "workspace:^",
+    "@effect/sql": "latest",
     "effect": "latest"
   },
   "effect": {

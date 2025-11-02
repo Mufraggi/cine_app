@@ -12,7 +12,11 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "NodeNext",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "types": [],
     "isolatedModules": true,
     "sourceMap": true,
@@ -35,17 +39,66 @@
     "module": "NodeNext",
     "incremental": true,
     "removeComments": false,
-    "plugins": [{ "name": "@effect/language-service" }],
+    "plugins": [
+      {
+        "name": "@effect/language-service"
+      }
+    ],
     "paths": {
-      "@template/cli": ["./packages/cli/src/index.js"],
-      "@template/cli/*": ["./packages/cli/src/*.js"],
-      "@template/cli/test/*": ["./packages/cli/test/*.js"],
-      "@template/domain": ["./packages/domain/src/index.js"],
-      "@template/domain/*": ["./packages/domain/src/*.js"],
-      "@template/domain/test/*": ["./packages/domain/test/*.js"],
-      "@template/server": ["./packages/server/src/index.js"],
-      "@template/server/*": ["./packages/server/src/*.js"],
-      "@template/server/test/*": ["./packages/server/test/*.js"]
+      "@template/contractApi": [
+        "./packages/contractApi/src/index.js"
+      ],
+      "@template/contractApi/*": [
+        "./packages/contractApi/src/*.js"
+      ],
+      "@template/contractApi/test/*": [
+        "./packages/contractApi/test/*.js"
+      ],
+      "@template/database": [
+        "./packages/database/src/index.js"
+      ],
+      "@template/database/*": [
+        "./packages/database/src/*.js"
+      ],
+      "@template/database/test/*": [
+        "./packages/database/test/*.js"
+      ],
+      "@template/utils": [
+        "./packages/utils/src/index.js"
+      ],
+      "@template/utils/*": [
+        "./packages/utils/src/*.js"
+      ],
+      "@template/utils/test/*": [
+        "./packages/utils/test/*.js"
+      ],
+      "@template/workflow": [
+        "./packages/workflow/src/index.js"
+      ],
+      "@template/workflow/*": [
+        "./packages/workflow/src/*.js"
+      ],
+      "@template/workflow/test/*": [
+        "./packages/workflow/test/*.js"
+      ],
+      "@template/domain": [
+        "./packages/domain/src/index.js"
+      ],
+      "@template/domain/*": [
+        "./packages/domain/src/*.js"
+      ],
+      "@template/domain/test/*": [
+        "./packages/domain/test/*.js"
+      ],
+      "@template/api": [
+        "./apps/api/src/index.js"
+      ],
+      "@template/api/*": [
+        "./apps/api/src/*.js"
+      ],
+      "@template/api/test/*": [
+        "./apps/api/test/*.js"
+      ]
     }
   }
 }
