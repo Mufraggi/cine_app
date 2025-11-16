@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@effect/platform": "latest",
-    "@effect/sql": "latest",
+    "@effect/platform-node": "latest",
     "effect": "latest"
   },
   "effect": {
