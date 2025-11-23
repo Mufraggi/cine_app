@@ -8,8 +8,7 @@ import { RawMovieEmbeddingRepository } from "../../src/repositories/RowMovieEmbe
 import { PgLive } from "../../src/Sql.js"
 
 describe("RawMovieEmbedingRepository", () => {
-  it("should succeed of create rawMovieEmbeding", async () => {
-    console.log("start")
+  it("should succeed of create rawMovieEmbeding", { timeout: 5000 }, async () => {
     const arr: Array<number> = Array.from({ length: 1536 }, () => Math.random())
     const program = Effect.gen(function*() {
       const uuid = yield* Uuid
@@ -17,7 +16,6 @@ describe("RawMovieEmbedingRepository", () => {
 
       const id = yield* uuid.generate
       const rawMovieApiId = yield* uuid.generate
-      const arr: Array<number> = Array.from({ length: 1536 }, () => Math.random())
       const data = new RawMovieEmbeddingModel({
         id: RawMovieEmbeddingId.make(id),
         rawMovieApiId: RawMovieApiId.make(rawMovieApiId),
@@ -26,16 +24,14 @@ describe("RawMovieEmbedingRepository", () => {
         updatedAt: new Date()
       })
       yield* rawMovieEmbeddingRepository.insert(data)
-      console.log("after")
       return yield* (yield* rawMovieEmbeddingRepository.findById(RawMovieEmbeddingId.make(id)))
     })
-    const result = await Effect.runPromiseExit(program.pipe(
+    const result = await Effect.runPromise(program.pipe(
       Effect.provide(Uuid.Default),
       Effect.provide(RawMovieEmbeddingRepository.Default),
       Effect.provide(PgLive)
     ))
-    console.log(result)
 
-    expect(result.embedding).toBe(arr)
+    expect(result.embedding).toEqual(arr)
   })
 })
