@@ -1,6 +1,7 @@
 import { Model } from "@effect/sql"
 import { Effect } from "effect"
 import { MovieModel } from "../model/MovieModel.js"
+import { PgLive } from "../Sql.js"
 
 export class MovieRepository extends Effect.Service<MovieRepository>()("MovieRepository", {
   effect: Effect.gen(function*() {
@@ -15,5 +16,6 @@ export class MovieRepository extends Effect.Service<MovieRepository>()("MovieRep
       insert: repo.insertVoid,
       findById: repo.findById
     }
-  })
+  }),
+  dependencies: [PgLive]
 }) {}

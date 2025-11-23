@@ -24,7 +24,8 @@
     "coverage": "vitest --coverage"
   },
   "dependencies": {
-    "effect": "latest"
+    "effect": "latest",
+    "uuid": "^13.0.0"
   },
   "effect": {
     "generateExports": {

@@ -1,8 +1,9 @@
-import { randomUUID } from "crypto"
 import { Effect } from "effect"
+import * as Api from "uuid"
 
 export class Uuid extends Effect.Service<Uuid>()("Uuid", {
   succeed: {
-    generate: Effect.sync(() => randomUUID())
+    generate: Effect.sync(() => Api.v7())
   }
-}) {}
+}) {
+}

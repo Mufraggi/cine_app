@@ -11,9 +11,8 @@ import {
   StartYear
 } from "@template/domain/imdb/ImdbResponseApiType"
 import { MovieId, MovieType } from "@template/domain/movie/MovieType"
-import { EmbeddingMovie } from "@template/domain/rowMovieEmbedding/RowMovieEmbeddingType"
+import { EmbeddingMovie } from "@template/domain/rawMovieEmbedding/RawMovieEmbeddingType"
 import { Schema } from "effect"
-
 
 export class MovieModel extends Model.Class<MovieModel>("MovieModel")({
   id: MovieId,

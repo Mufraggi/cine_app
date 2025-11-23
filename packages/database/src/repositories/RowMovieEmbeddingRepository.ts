@@ -1,6 +1,7 @@
 import { Model } from "@effect/sql"
 import { Effect } from "effect"
 import { RawMovieEmbeddingModel } from "../model/RawMovieEmbddingModel.js"
+import { PgLive } from "../Sql.js"
 
 export class RawMovieEmbeddingRepository
   extends Effect.Service<RawMovieEmbeddingRepository>()("RawMovieEmbeddingRepository", {
@@ -16,6 +17,7 @@ export class RawMovieEmbeddingRepository
         insert: repo.insertVoid,
         findById: repo.findById
       }
-    })
+    }),
+    dependencies: [PgLive]
   })
 {}

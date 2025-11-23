@@ -1,6 +1,7 @@
 import { Model } from "@effect/sql"
 import { Effect } from "effect"
 import { RawMovieApiModel } from "../model/RawMovieApiModel.js"
+import { PgLive } from "../Sql.js"
 
 export class RowMovieApiRepository extends Effect.Service<RowMovieApiRepository>()("RowMovieApiRepository", {
   effect: Effect.gen(function*() {
@@ -15,5 +16,6 @@ export class RowMovieApiRepository extends Effect.Service<RowMovieApiRepository>
       insert: repo.insertVoid,
       findById: repo.findById
     }
-  })
+  }),
+  dependencies: [PgLive]
 }) {}

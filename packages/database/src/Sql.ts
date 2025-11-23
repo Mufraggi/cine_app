@@ -5,35 +5,36 @@ import { Config, Effect, identity, Layer, Redacted, String } from "effect"
 import * as path from "node:path"
 import pgTypes from "pg-types"
 
-import { fileURLToPath } from "node:url"
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-
-pgTypes.setTypeParser(1082, identity)
-pgTypes.setTypeParser(1114, identity)
+pgTypes.setTypeParser(1082, identity) // DATE
+pgTypes.setTypeParser(1114, identity) // TIMESTAMP
 pgTypes.setTypeParser(1184, identity)
 
-export const PgLive = Layer.unwrapEffect(Effect.gen(function*() {
-  const database = yield* Config.redacted("DB_HOST")
-  const username = yield* Config.redacted("DB_USER")
-  const port = yield* Config.redacted("DB_PORT")
-  const password = yield* Config.redacted("DB_PWD")
-  const dbName = yield* Config.redacted("DB_NAME")
+export const PgLive = Layer.unwrapEffect(
+  Effect.gen(function*() {
+    const database = yield* Config.string("DB_HOST")
+    const username = yield* Config.string("DB_USER")
+    const port = yield* Config.string("DB_PORT")
+    const password = yield* Config.string("DB_PWD")
+    const dbName = yield* Config.string("DB_NAME")
 
-  const url = Redacted.make(
-    `postgres://${Redacted.value(username)}:${Redacted.value(password)}@${Redacted.value(database)}:${
-      Redacted.value(port)
-    }/${Redacted.value(dbName)}`
-  )
-  return PgClient.layer({
-    url,
-    maxConnections: 10,
-    transformQueryNames: String.camelToSnake,
-    transformResultNames: String.snakeToCamel,
-    types: pgTypes
+    const url = `postgres://${username}:${password}@${database}:${port}/${dbName}`
+    const ssl = false
+
+    return PgClient.layer({
+      url: Redacted.make(url),
+      ssl,
+      maxConnections: 5,
+      transformQueryNames: String.camelToSnake,
+      transformResultNames: String.snakeToCamel,
+      // - 114: JSON (return as string instead of parsed object)
+      // - 1082: DATE
+      // - 1114: TIMESTAMP WITHOUT TIME ZONE
+      // - 1184: TIMESTAMP WITH TIME ZONE
+      // - 3802: JSONB (return as string instead of parsed object)
+      types: pgTypes
+    })
   })
-})).pipe(
-  Layer.provide(PlatformConfigProvider.layerDotEnv(path.join(__dirname, "..", "..", "..", ".env"))),
+).pipe(
+  Layer.provide(PlatformConfigProvider.layerDotEnv(path.join(process.cwd(), ".env"))),
   Layer.provide(NodeContext.layer)
 )
