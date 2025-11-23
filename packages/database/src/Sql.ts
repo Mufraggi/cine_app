@@ -3,7 +3,11 @@ import { NodeContext } from "@effect/platform-node"
 import { PgClient } from "@effect/sql-pg"
 import { Config, Effect, identity, Layer, Redacted, String } from "effect"
 import * as path from "node:path"
+import { fileURLToPath } from "node:url"
 import pgTypes from "pg-types"
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 pgTypes.setTypeParser(1082, identity) // DATE
 pgTypes.setTypeParser(1114, identity) // TIMESTAMP
@@ -35,6 +39,7 @@ export const PgLive = Layer.unwrapEffect(
     })
   })
 ).pipe(
-  Layer.provide(PlatformConfigProvider.layerDotEnv(path.join(process.cwd(), ".env"))),
+  Layer.provide(PlatformConfigProvider.layerDotEnv(path.join(__dirname, "..", "..", "..", ".env"))),
   Layer.provide(NodeContext.layer)
 )
+

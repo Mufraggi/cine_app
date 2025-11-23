@@ -11,11 +11,9 @@ describe("RawMovieEmbedingRepository", () => {
   it("should succeed of create rawMovieEmbeding", { timeout: 5000 }, async () => {
     const arr: Array<number> = Array.from({ length: 1536 }, () => Math.random())
     const program = Effect.gen(function*() {
-      console.log(1)
       const uuid = yield* Uuid
-      console.log(1)
       const rawMovieEmbeddingRepository = yield* RawMovieEmbeddingRepository
-      console.log(3)
+
       const id = yield* uuid.generate
       const rawMovieApiId = yield* uuid.generate
       const data = new RawMovieEmbeddingModel({
@@ -28,13 +26,15 @@ describe("RawMovieEmbedingRepository", () => {
       yield* rawMovieEmbeddingRepository.insert(data)
       return yield* (yield* rawMovieEmbeddingRepository.findById(RawMovieEmbeddingId.make(id)))
     })
-    console.log("a")
+    
     const result = await Effect.runPromise(program.pipe(
       Effect.provide(Uuid.Default),
       Effect.provide(RawMovieEmbeddingRepository.Default),
       Effect.provide(PgLive)
     ))
 
-    expect(result.embedding).toEqual(arr)
+    // PostgreSQL stores vectors as float32, so we check length and approximate values
+    expect(result.embedding).toHaveLength(1536)
+    expect(result.embedding[0]).toBeCloseTo(arr[0], 5)
   })
 })

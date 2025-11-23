@@ -30,7 +30,8 @@
     "@effect/sql-pg": "^0.49.6",
     "@template/domain": "workspace:^",
     "effect": "latest",
-    "pg-types": "^4.1.0"
+    "pg-types": "^4.1.0",
+    "pgvector": "^0.2.1"
   },
   "effect": {
     "generateExports": {
