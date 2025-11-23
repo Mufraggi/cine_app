@@ -27,7 +27,7 @@ export class VectorLlmClient extends Effect.Service<VectorLlmClient>()("VectorLl
   })
 }) {
   static InMemory = Layer.succeed(VectorLlmClient, {
-    vectorizeFilmdescription: (plot: Plot) => {
+    vectorizeFilmdescription: (_: Plot) => {
       const arr: Array<number> = Array.from({ length: 1536 }, () => Math.random())
       return Effect.succeed(arr)
     },

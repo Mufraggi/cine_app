@@ -3,7 +3,6 @@ import { NodeContext } from "@effect/platform-node"
 import { Effect, Layer } from "effect"
 import * as path from "node:path"
 import { Plot } from "../../domain/src/imdb/ImdbResponseApiType.js"
-import { ImdbClientHttp } from "./ImdbClientHttp.js"
 import { VectorLlmClient } from "./VectorLlmClient.js"
 
 const appLayer = VectorLlmClient.InMemory.pipe(
