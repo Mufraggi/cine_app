@@ -24,6 +24,8 @@
     "coverage": "vitest --coverage"
   },
   "dependencies": {
+    "@effect/ai": "^0.32.1",
+    "@effect/ai-openai": "^0.35.0",
     "@effect/platform": "latest",
     "@effect/platform-node": "latest",
     "effect": "latest"
