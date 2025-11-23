@@ -2,8 +2,8 @@ import { Model } from "@effect/sql"
 import { Effect } from "effect"
 import { RawMovieEmbeddingModel } from "../model/RawMovieEmbddingModel.js"
 
-export class RowMovieEmbeddingRepository
-  extends Effect.Service<RowMovieEmbeddingRepository>()("RowMovieEmbeddingRepository", {
+export class RawMovieEmbeddingRepository
+  extends Effect.Service<RawMovieEmbeddingRepository>()("RawMovieEmbeddingRepository", {
     effect: Effect.gen(function*() {
       yield* Effect.log("")
 
@@ -13,7 +13,7 @@ export class RowMovieEmbeddingRepository
         idColumn: "id"
       })
       return {
-        insert: repo.insert,
+        insert: repo.insertVoid,
         findById: repo.findById
       }
     })

@@ -1,22 +1,23 @@
 import * as path from "node:path"
+import tsconfigPaths from "vite-tsconfig-paths" // <--- 1. On importe le plugin
 import type { UserConfig } from "vitest/config"
 
-const alias = (name: string) => {
-  const target = process.env.TEST_DIST !== undefined ? "dist/dist/esm" : "src"
-  return ({
-    [`${name}/test`]: path.join(__dirname, "packages", name, "test"),
-    [`${name}`]: path.join(__dirname, "packages", name, target)
-  })
-}
+// La fonction createAliases et la logique manuelle sont supprimées.
+// C'est le plugin qui va lire ton tsconfig.base.json et comprendre
+// que @template/domain pointe vers packages/domain/src
 
 // This is a workaround, see https://github.com/vitest-dev/vitest/issues/4744
 const config: UserConfig = {
+  plugins: [
+    tsconfigPaths() // <--- 2. On active le plugin ici
+  ],
   esbuild: {
     target: "es2020"
   },
   optimizeDeps: {
     exclude: ["bun:sqlite"]
   },
+  // 3. On supprime la section 'resolve: { alias: ... }' car le plugin s'en charge
   test: {
     setupFiles: [path.join(__dirname, "setupTests.ts")],
     fakeTimers: {
@@ -26,11 +27,7 @@ const config: UserConfig = {
       concurrent: true
     },
     include: ["test/**/*.test.ts"],
-    alias: {
-      ...alias("cli"),
-      ...alias("domain"),
-      ...alias("server")
-    }
+    // 4. On supprime aussi 'alias: ...' ici
   }
 }
 

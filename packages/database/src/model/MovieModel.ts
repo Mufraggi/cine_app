@@ -14,6 +14,7 @@ import { MovieId, MovieType } from "@template/domain/movie/MovieType"
 import { EmbeddingMovie } from "@template/domain/rowMovieEmbedding/RowMovieEmbeddingType"
 import { Schema } from "effect"
 
+
 export class MovieModel extends Model.Class<MovieModel>("MovieModel")({
   id: MovieId,
   imdbId: ImdbId,

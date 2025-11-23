@@ -12,7 +12,7 @@ export class RowMovieApiRepository extends Effect.Service<RowMovieApiRepository>
       idColumn: "id"
     })
     return {
-      insert: repo.insert,
+      insert: repo.insertVoid,
       findById: repo.findById
     }
   })

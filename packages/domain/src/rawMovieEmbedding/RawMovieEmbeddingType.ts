@@ -1,7 +1,7 @@
 import { Schema } from "effect"
 
-export const RowMovieEmbeddingId = Schema.UUID.pipe(Schema.brand("RowMovieEmbeddingId"))
-export type RowMovieEmbeddingId = typeof RowMovieEmbeddingId.Type
+export const RawMovieEmbeddingId = Schema.UUID.pipe(Schema.brand("RawMovieEmbeddingId"))
+export type RawMovieEmbeddingId = typeof RawMovieEmbeddingId.Type
 
 export const EmbeddingMovie = Schema.Array(Schema.Number).pipe(
   Schema.minItems(1536),

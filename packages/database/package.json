@@ -25,9 +25,12 @@
   },
   "dependencies": {
     "@effect/platform": "latest",
+    "@effect/platform-node": "^0.101.1",
     "@effect/sql": "latest",
+    "@effect/sql-pg": "^0.49.6",
+    "@template/domain": "workspace:^",
     "effect": "latest",
-    "@template/domain": "workspace:^"
+    "pg-types": "^4.1.0"
   },
   "effect": {
     "generateExports": {

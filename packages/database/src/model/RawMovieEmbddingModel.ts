@@ -1,11 +1,11 @@
 import { Model } from "@effect/sql"
-import { RowMovieApiId } from "@template/domain/rowMovieApi/RowMovieApiType"
-import { EmbeddingMovie, RowMovieEmbeddingId } from "@template/domain/rowMovieEmbedding/RowMovieEmbeddingType"
+import { RawMovieApiId } from "@template/domain/rawMovieApi/RawMovieApiType"
+import { EmbeddingMovie, RawMovieEmbeddingId } from "@template/domain/rawMovieEmbedding/RawMovieEmbeddingType"
 import { Schema } from "effect"
 
 export class RawMovieEmbeddingModel extends Model.Class<RawMovieEmbeddingModel>("RawMovieEmbeddingModel")({
-  id: RowMovieEmbeddingId,
-  rawMovieApiId: RowMovieApiId,
+  id: RawMovieEmbeddingId,
+  rawMovieApiId: RawMovieApiId,
   embedding: EmbeddingMovie,
 
   createdAt: Schema.Date,

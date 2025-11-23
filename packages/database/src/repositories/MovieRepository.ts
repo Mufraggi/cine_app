@@ -12,7 +12,7 @@ export class MovieRepository extends Effect.Service<MovieRepository>()("MovieRep
       idColumn: "id"
     })
     return {
-      insert: repo.insert,
+      insert: repo.insertVoid,
       findById: repo.findById
     }
   })
