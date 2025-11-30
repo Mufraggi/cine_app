@@ -1,7 +1,6 @@
 import { Effect, pipe } from "effect"
 
 import { SqlClient } from "@effect/sql"
-import { makeWithTransaction } from "@effect/sql/SqlClient"
 import { RowMovieApiRepository } from "@template/database/repositories/RowMovieApiRepository"
 import type { IMdbData } from "@template/domain/imdb/ImdbResponseApi"
 import { RawMovieApiId } from "@template/domain/rawMovieApi/RawMovieApiType"
@@ -43,6 +42,5 @@ export class ApiTaskWorkFlowService extends Effect.Service<ApiTaskWorkFlowServic
     return {
       run
     }
-  }),
-  dependencies: [RowMovieApiRepository.Default, ImdbClientHttp.Default, Uuid.Default]
+  })
 }) {}

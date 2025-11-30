@@ -47,7 +47,7 @@ export class ImdbClientHttp extends Effect.Service<ImdbClientHttp>()("ImdbClient
         primaryTitle: PrimaryTitle.make("Mock Movie"),
         originalTitle: OriginalTitle.make("Mock Movie Original"),
         primaryImage: {
-          url: PrimaryImageUrl.make("https://example.com/mock.jpg"),
+          url: PrimaryImageUrl.make(new URL("https://example.com/mock.jpg")),
           width: PrimaryImageWidth.make(800),
           height: PrimaryImageHeight.make(600)
         },
