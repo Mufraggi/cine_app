@@ -26,7 +26,7 @@ describe("RawMovieEmbedingRepository", () => {
       yield* rawMovieEmbeddingRepository.insert(data)
       return yield* (yield* rawMovieEmbeddingRepository.findById(RawMovieEmbeddingId.make(id)))
     })
-    
+
     const result = await Effect.runPromise(program.pipe(
       Effect.provide(Uuid.Default),
       Effect.provide(RawMovieEmbeddingRepository.Default),
