@@ -1,6 +1,5 @@
 import { Schema } from "effect"
 
-// export const ImdbId = Schema.String.pipe(Schema.brand("ImdbId"))
 export type ImdbId = typeof ImdbId.Type
 export const ImdbId = Schema.String.pipe(
   Schema.pattern(/^tt\d{6,9}$/, {

@@ -22,7 +22,6 @@ export const PgLive = Layer.unwrapEffect(
     const dbName = yield* Config.string("DB_NAME")
 
     const url = `postgres://${username}:${password}@${database}:${port}/${dbName}`
-    console.log(url)
     const ssl = false
 
     return PgClient.layer({

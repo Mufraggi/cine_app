@@ -35,8 +35,6 @@ describe("RowMovieApiRepository", () => {
       const repo = yield* RowMovieApiRepository
 
       const id = RawMovieApiId.make(yield* uuid.generate)
-
-      // Build IMdbData payload (must match your branded schemas)
       const payload: IMdbData = {
         id: ImdbId.make("tt9876543"),
         type: ImdbType.make("movie"),

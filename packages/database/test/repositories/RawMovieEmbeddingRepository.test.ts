@@ -8,7 +8,7 @@ import { RawMovieEmbeddingRepository } from "../../src/repositories/RowMovieEmbe
 import { PgLive } from "../../src/Sql.js"
 
 describe("RawMovieEmbedingRepository", () => {
-  it("should succeed of create rawMovieEmbeding", { timeout: 5000 }, async () => {
+  it("should succeed of create rawMovieEmbeding", async () => {
     const arr: Array<number> = Array.from({ length: 1536 }, () => Math.random())
     const program = Effect.gen(function*() {
       const uuid = yield* Uuid
