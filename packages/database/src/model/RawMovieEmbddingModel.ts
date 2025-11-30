@@ -22,6 +22,3 @@ export class RawMovieEmbeddingModel extends Model.Class<RawMovieEmbeddingModel>(
   createdAt: Schema.Date,
   updatedAt: Schema.Date
 }) {}
-
-
-

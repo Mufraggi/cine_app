@@ -15,7 +15,7 @@ export class RawMovieEmbeddingRepository
         spanPrefix: "rawMovieEmbeddingRepository",
         idColumn: "id"
       })
-      
+
       const customInsert = (data: RawMovieEmbeddingModel) => {
         const embeddingStr = `[${data.embedding.join(",")}]`
         return sql`
@@ -23,7 +23,7 @@ export class RawMovieEmbeddingRepository
           VALUES (${data.id}, ${data.rawMovieApiId}, ${embeddingStr}::vector, ${data.createdAt}, ${data.updatedAt})
         `
       }
-      
+
       return {
         insert: (data: RawMovieEmbeddingModel) => customInsert(data),
         findById: repo.findById
@@ -32,4 +32,3 @@ export class RawMovieEmbeddingRepository
     dependencies: [PgLive]
   })
 {}
-

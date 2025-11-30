@@ -24,6 +24,7 @@ export const IMdbData = Schema.Struct({
   rating: Schema.optional(Rating),
   plot: Plot
 })
+export type IMdbData = typeof IMdbData.Type
 
 export const EndPointResponseApi = Schema.Struct({
   titles: Schema.Array(IMdbData),
