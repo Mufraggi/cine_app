@@ -12,6 +12,8 @@
     },
     {
     "path": "../../packages/database"
+  },{
+    "path": "../../packages/utils"
   }
   ],
   "compilerOptions": {

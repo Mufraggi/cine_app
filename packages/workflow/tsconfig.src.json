@@ -6,7 +6,11 @@
   },
 {
     "path": "../../packages/database"
-  }],
+  },
+  {
+    "path": "../../packages/utils"
+  }
+],
   "compilerOptions": {
     "types": ["node"],
     "outDir": "build/src",

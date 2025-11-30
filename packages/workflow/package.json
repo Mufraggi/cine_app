@@ -26,7 +26,11 @@
   "dependencies": {
     "@effect/platform": "latest",
     "@effect/sql": "latest",
-    "effect": "latest"
+    "effect": "latest",
+    "@effect/platform-node": "latest",
+    "@template/database": "workspace:^",
+    "@template/domain": "workspace:^",
+    "@template/utils": "workspace:^"
   },
   "effect": {
     "generateExports": {

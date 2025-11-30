@@ -31,3 +31,4 @@ export const EndPointResponseApi = Schema.Struct({
   totalCount: Schema.Number,
   nextPageToken: Schema.String
 })
+export type EndPointResponseApi = typeof EndPointResponseApi.Type
