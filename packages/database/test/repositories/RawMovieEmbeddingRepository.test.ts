@@ -32,8 +32,6 @@ describe("RawMovieEmbedingRepository", () => {
       Effect.provide(RawMovieEmbeddingRepository.Default),
       Effect.provide(PgLive)
     ))
-    console.log(result.embedding)
-    // PostgreSQL stores vectors as float32, so we check length and approximate values
     expect(result.embedding).toHaveLength(1536)
     expect(result.embedding[0]).toBeCloseTo(arr[0], 5)
   })
