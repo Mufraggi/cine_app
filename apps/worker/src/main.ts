@@ -1,11 +1,14 @@
 import { ClusterWorkflowEngine, RunnerAddress } from "@effect/cluster"
 import { FetchHttpClient } from "@effect/platform"
 import { NodeClusterSocket, NodeRuntime } from "@effect/platform-node"
+import { RowMovieApiRepository } from "@template/database/repositories/RowMovieApiRepository"
 import { PgLive } from "@template/database/Sql"
+import { Uuid } from "@template/domain/Uuid"
+import { ImdbClientHttp } from "@template/utils/ImdbClientHttp"
 import { ApiTaskWorkflow, ApiTaskWorkflowLogic } from "@template/workflow/etl_movie_embedding/api_task/ApiTaskWorkflow"
+import { ApiTaskWorkFlowService } from "@template/workflow/etl_movie_embedding/api_task/ApiTaskWorkflowService"
 import { Effect, Layer, Option } from "effect"
-import { RowMovieApiRepository } from "../../../packages/database/src/repositories/RowMovieApiRepository.js"
-import { ImdbClientHttp } from "../../../packages/utils/src/ImdbClientHttp.js"
+
 const RunnerLayer = Layer.unwrapEffect(Effect.succeed(
   NodeClusterSocket.layer({
     shardingConfig: {
@@ -15,25 +18,20 @@ const RunnerLayer = Layer.unwrapEffect(Effect.succeed(
   })
 ))
 const BaseDependenciesLayer = Layer.mergeAll(
-    Uuid,
+  Uuid,
   PgLive,
   FetchHttpClient.layer
 )
 
 const ApiTaskWorkflowWorkerLayer = ApiTaskWorkflow.toLayer(ApiTaskWorkflowLogic).pipe(
   Layer.provide(ClusterWorkflowEngine.layer),
-
-    Layer.provide(RowMovieApiRepository.Default),
-  Layer.provide(ImdbClientHttp.Default)
-  
+  Layer.provide(ApiTaskWorkFlowService.Default),
+  Layer.provide(RowMovieApiRepository.Default),
+  Layer.provide(ImdbClientHttp.Default),
   Layer.provide(RunnerLayer),
-     Layer.provide(BaseDependenciesLayer),
-
- 
+  Layer.provide(BaseDependenciesLayer)
 )
 
-
-
-const AppLayer = Layer.mergeAll()
+const AppLayer = Layer.mergeAll(ApiTaskWorkflowWorkerLayer)
 Layer.launch(AppLayer)
   .pipe(NodeRuntime.runMain)
