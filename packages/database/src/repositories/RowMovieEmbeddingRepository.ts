@@ -1,6 +1,7 @@
-import { Model } from "@effect/sql"
+import { Model, SqlSchema } from "@effect/sql"
 import { PgClient } from "@effect/sql-pg"
-import { Effect } from "effect"
+import { Effect, pipe } from "effect"
+import { RawMovieApiId } from "../../../domain/src/rawMovieApi/RawMovieApiType.js"
 import { RawMovieEmbeddingModel } from "../model/RawMovieEmbddingModel.js"
 import { PgLive } from "../Sql.js"
 
@@ -24,9 +25,48 @@ export class RawMovieEmbeddingRepository
         `
       }
 
+      const customUpdate = (
+        rawMovieApiId: RawMovieApiId,
+        embedding: Array<number>,
+        updatedAt: Date
+      ) => {
+        const embeddingStr = `[${embedding.join(",")}]`
+
+        return sql`
+    UPDATE raw_movie_embedding 
+    SET 
+      embedding = ${embeddingStr}::vector,
+      updated_at = ${updatedAt}
+    WHERE raw_movie_api_id = ${rawMovieApiId}
+  `
+      }
+
+      const findByRawMovieApiIdSchema = SqlSchema.findOne({
+        Request: RawMovieApiId,
+        Result: RawMovieEmbeddingModel,
+        execute(id) {
+          return sql`
+            SELECT
+               *
+              
+            FROM raw_movie_embedding ucwa 
+            WHERE raw_movie_api_id = ${id}
+          `
+        }
+      })
+
+      const findByRawMovieApiId = (id: RawMovieApiId) =>
+        pipe(
+          findByRawMovieApiIdSchema(id),
+          Effect.orDie,
+          Effect.withSpan("RawMovieEmbeddingRepository.findByRawMovieApiId")
+        )
+
       return {
         insert: (data: RawMovieEmbeddingModel) => customInsert(data),
-        findById: repo.findById
+        findById: repo.findById,
+        update: customUpdate,
+        findByRawMovieApiId
       }
     }),
     dependencies: [PgLive]
