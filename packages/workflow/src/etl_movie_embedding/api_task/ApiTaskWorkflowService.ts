@@ -6,6 +6,7 @@ import type { IMdbData } from "@template/domain/imdb/ImdbResponseApi"
 import { RawMovieApiId } from "@template/domain/rawMovieApi/RawMovieApiType"
 import { Uuid } from "@template/domain/Uuid"
 import { ImdbClientHttp } from "@template/utils/ImdbClientHttp"
+import { ApiTaskWorkflowError } from "./ApiTaskWorkflow.js"
 
 export class ApiTaskWorkFlowService extends Effect.Service<ApiTaskWorkFlowService>()("ApiTaskWorkflowService", {
   effect: Effect.gen(function*() {
@@ -36,7 +37,7 @@ export class ApiTaskWorkFlowService extends Effect.Service<ApiTaskWorkFlowServic
           const inserts = movies.map((movie) => insertMovie(movie))
           return Effect.all(inserts)
         }),
-        Effect.catchTag("SqlError", (err) => Effect.die(err))
+        Effect.catchAll((err) => new ApiTaskWorkflowError({ message: `Failed to run ApiTaskWorkFlowService: ${err}` }))
       )
 
     return {

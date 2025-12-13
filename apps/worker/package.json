@@ -1,13 +1,13 @@
 {
-  "name": "@template/workflow",
+  "name": "@template/worker",
   "version": "0.0.0",
   "type": "module",
   "license": "MIT",
-  "description": "The domain template",
+  "description": "The server template",
   "repository": {
     "type": "git",
     "url": "<PLACEHOLDER>",
-    "directory": "packages/domain"
+    "directory": "packages/server"
   },
   "publishConfig": {
     "access": "public",
@@ -24,16 +24,17 @@
     "coverage": "vitest --coverage"
   },
   "dependencies": {
-    "@effect/platform": "latest",
+  "@effect/platform": "latest",
     "@effect/cluster": "latest",
     "@effect/workflow": "latest",
     "@effect/experimental": "latest",
     "@effect/sql": "latest",
-    "effect": "latest",
     "@effect/platform-node": "latest",
-    "@template/database": "workspace:^",
     "@template/domain": "workspace:^",
-    "@template/utils": "workspace:^"
+    "@template/workflow": "workspace:^",
+    "@template/database": "workspace:^",
+    "@template/utils": "workspace:^",
+    "effect": "latest"
   },
   "effect": {
     "generateExports": {

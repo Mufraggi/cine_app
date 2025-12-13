@@ -98,6 +98,15 @@
       ],
       "@template/api/test/*": [
         "./apps/api/test/*.js"
+      ],
+      "@template/worker": [
+        "./apps/worker/src/index.js"
+      ],
+      "@template/worker/*": [
+        "./apps/worker/src/*.js"
+      ],
+      "@template/worker/test/*": [
+        "./apps/worker/test/*.js"
       ]
     }
   }

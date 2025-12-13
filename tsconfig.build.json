@@ -22,6 +22,9 @@
     },
     {
       "path": "apps/api/tsconfig.build.json"
+    },
+    {
+      "path": "apps/worker/tsconfig.build.json"
     }
   ]
 }
