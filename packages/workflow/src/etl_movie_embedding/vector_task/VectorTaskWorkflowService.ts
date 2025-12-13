@@ -6,6 +6,7 @@ import { RawMovieEmbeddingId } from "@template/domain/rawMovieEmbedding/RawMovie
 import { Uuid } from "@template/domain/Uuid"
 import { VectorLlmClient } from "@template/utils/VectorLlmClient"
 import { Effect, Option, pipe } from "effect"
+import { VectorTaskWorkflowError } from "./VectorTaskWorkflow.js"
 
 export class VectorTaskWorkflowService extends Effect.Service<VectorTaskWorkflowService>()(
   "@template/workflow/etl_movie_embedding/vector_task/VectorTaskWorkflowService",
@@ -56,7 +57,7 @@ export class VectorTaskWorkflowService extends Effect.Service<VectorTaskWorkflow
             )
           ),
           sql.withTransaction,
-          Effect.catchTag("SqlError", (err) => Effect.die(err))
+          Effect.catchAll((err) => new VectorTaskWorkflowError({ message: err.message }))
         )
 
       return { run }

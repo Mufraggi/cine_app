@@ -7,6 +7,8 @@
   ],
   "scripts": {
     "dev-main-utils": "tsx packages/utils/src/main.ts",
+    "dev-worker": "tsx apps/worker/src/main.ts",
+    "dev-worker-run": "tsx apps/worker/src/run.ts",
     "clean": "node scripts/clean.mjs",
     "codegen": "pnpm --recursive --parallel run codegen",
     "build": "tsc -b tsconfig.build.json && pnpm --recursive --parallel run build",
