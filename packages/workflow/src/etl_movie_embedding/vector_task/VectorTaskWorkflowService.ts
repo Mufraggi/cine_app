@@ -1,7 +1,7 @@
 import { SqlClient } from "@effect/sql"
 import { RowMovieApiRepository } from "@template/database/repositories/RowMovieApiRepository"
 import { RawMovieEmbeddingRepository } from "@template/database/repositories/RowMovieEmbeddingRepository"
-import { RawMovieApiId } from "@template/domain/rawMovieApi/RawMovieApiType"
+import type { RawMovieApiId } from "@template/domain/rawMovieApi/RawMovieApiType"
 import { RawMovieEmbeddingId } from "@template/domain/rawMovieEmbedding/RawMovieEmbeddingType"
 import { Uuid } from "@template/domain/Uuid"
 import { VectorLlmClient } from "@template/utils/VectorLlmClient"
@@ -33,19 +33,9 @@ export class VectorTaskWorkflowService extends Effect.Service<VectorTaskWorkflow
         )
 
       const updateMovieEmbeding = (rawMoviId: RawMovieApiId, embedding: ReadonlyArray<number>) =>
-        uuid.generate.pipe(
-          Effect.flatMap((id) =>
-            rawMovieEmbeddingRepository
-              .insert({
-                id: RawMovieEmbeddingId.make(id),
-                createdAt: new Date(),
-                updatedAt: new Date(),
-                rawMovieApiId: rawMoviId,
-                embedding
-              })
-              .pipe(Effect.zipRight(Effect.succeed(RawMovieEmbeddingId.make(id))), Effect.orDie, sql.withTransaction)
-          )
-        )
+        rawMovieEmbeddingRepository
+          .update(rawMoviId, embedding, new Date())
+          .pipe(Effect.map((x) => x.id), Effect.orDie, sql.withTransaction)
 
       const run = (id: RawMovieApiId) =>
         pipe(

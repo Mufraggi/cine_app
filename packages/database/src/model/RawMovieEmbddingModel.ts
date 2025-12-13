@@ -4,7 +4,7 @@ import { RawMovieEmbeddingId } from "@template/domain/rawMovieEmbedding/RawMovie
 import { ParseResult, Schema } from "effect"
 
 // Transform to handle PostgreSQL vector type (stored as string "[x,y,z]")
-const VectorSchema = Schema.transformOrFail(
+export const VectorSchema = Schema.transformOrFail(
   Schema.String,
   Schema.Array(Schema.Number),
   {

@@ -11,8 +11,8 @@ import {
   StartYear
 } from "@template/domain/imdb/ImdbResponseApiType"
 import { MovieId, MovieType } from "@template/domain/movie/MovieType"
-import { EmbeddingMovie } from "@template/domain/rawMovieEmbedding/RawMovieEmbeddingType"
 import { Schema } from "effect"
+import { VectorSchema } from "./RawMovieEmbddingModel.js"
 
 export class MovieModel extends Model.Class<MovieModel>("MovieModel")({
   id: MovieId,
@@ -26,7 +26,7 @@ export class MovieModel extends Model.Class<MovieModel>("MovieModel")({
   genres: Genres,
   rating: Rating,
   plot: Plot,
-  embedding: EmbeddingMovie,
+  embedding: VectorSchema,
   createdAt: Schema.Date,
   updatedAt: Schema.Date
 }) {}
