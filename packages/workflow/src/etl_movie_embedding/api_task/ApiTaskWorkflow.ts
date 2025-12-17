@@ -19,11 +19,14 @@ export const ApiTaskWorkflow = Workflow.make({
 
 export const ApiTaskWorkflowLogic = (payload: { date: string }) =>
   Effect.gen(function*() {
+    yield* Effect.log("Starting ApiTaskWorkflow", payload.date)
     const logic = yield* ApiTaskWorkFlowService
     yield* logic.run().pipe(
       Effect.flatMap((ids) => {
-        const trigers = ids.map((id) => VectorTaskWorkflow.execute({ id, date: payload.date }))
-        return Effect.all(trigers)
+        const triggers = ids.map((id, index) =>
+          VectorTaskWorkflow.execute({ id, date: payload.date + index }, { discard: true }) // discard ici
+        )
+        return Effect.all(triggers)
       }),
       Effect.asVoid
     )

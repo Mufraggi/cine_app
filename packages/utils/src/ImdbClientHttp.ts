@@ -1,7 +1,6 @@
 import { FetchHttpClient, HttpClient } from "@effect/platform"
 import type { IMdbData } from "@template/domain/imdb/ImdbResponseApi"
 import { EndPointResponseApi } from "@template/domain/imdb/ImdbResponseApi"
-import { Config, Effect, Layer, Redacted, Schedule, Schema } from "effect"
 import {
   AggregateRating,
   Genre,
@@ -17,7 +16,8 @@ import {
   RuntimeSeconds,
   StartYear,
   VoteCount
-} from "../../domain/src/imdb/ImdbResponseApiType.js"
+} from "@template/domain/imdb/ImdbResponseApiType"
+import { Config, Effect, Layer, Redacted, Schedule, Schema } from "effect"
 
 export class ImdbClientHttp extends Effect.Service<ImdbClientHttp>()("ImdbClientHttp", {
   dependencies: [FetchHttpClient.layer],

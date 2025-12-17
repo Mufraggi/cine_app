@@ -9,6 +9,7 @@ import type { RawMovieEmbeddingId } from "@template/domain/rawMovieEmbedding/Raw
 import { EmbeddingMovie } from "@template/domain/rawMovieEmbedding/RawMovieEmbeddingType"
 import { Uuid } from "@template/domain/Uuid"
 import { Effect, Option, pipe } from "effect"
+import { MovieTaskWorkflowError } from "./MovieTaskWorkflow.js"
 
 export class MovieTaskWorkflowService extends Effect.Service<MovieTaskWorkflowService>()(
   "@template/workflow/etl_movie_embedding/movie_task/MovieTaskWorkflowService",
@@ -94,7 +95,9 @@ export class MovieTaskWorkflowService extends Effect.Service<MovieTaskWorkflowSe
             )
           ),
           sql.withTransaction,
-          Effect.catchTag("SqlError", (err) => Effect.die(err))
+          Effect.catchAll(
+            (err) => new MovieTaskWorkflowError({ message: err.message })
+          )
         )
 
       return {
