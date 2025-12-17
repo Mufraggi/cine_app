@@ -135,6 +135,12 @@ importers:
       '@tanstack/router-plugin':
         specifier: ^1.132.0
         version: 1.141.6(@tanstack/react-router@1.141.6(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(vite@6.4.1(@types/node@22.19.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0))
+      '@template/contract_api':
+        specifier: workspace:*
+        version: link:../../packages/contractApi/dist
+      '@template/domain':
+        specifier: workspace:*
+        version: link:../../packages/domain/dist
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
