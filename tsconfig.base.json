@@ -107,6 +107,15 @@
       ],
       "@template/worker/test/*": [
         "./apps/worker/test/*.js"
+      ],
+       "@template/front": [
+        "./apps/front/src/index.js"
+      ],
+      "@template/front/*": [
+        "./apps/front/src/*.js"
+      ],
+      "@template/front/test/*": [
+        "./apps/front/test/*.js"
       ]
     }
   }
