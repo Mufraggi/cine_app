@@ -15,3 +15,5 @@ scratchpad/*
 .env.development.local
 .env.test.local
 .env.production.local
+./apps/web/build
+./apps/web/node_modules
